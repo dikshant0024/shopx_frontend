@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AquaBasket | Mobile Shopping Store</title>
+    <meta
+      name="description"
+      content="Mobile-first frontend shopping website for stationery, photo frames, and toys."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <script>
+// Show popup only first time
+window.onload = function () {
+  if (!localStorage.getItem("userPin")) {
+    document.getElementById("pinPopup").style.display = "flex";
+  }
+};
+
+function closePopup() {
+  document.getElementById("pinPopup").style.display = "none";
+}
+
+function submitPin() {
+  let pin = document.getElementById("pinInput").value;
+
+  if (pin.length === 6 && !isNaN(pin)) {
+    localStorage.setItem("userPin", pin);
+    alert("Delivery available for PIN: " + pin + " ✅");
+    closePopup();
+  } else {
+    alert("Enter valid 6-digit PIN ❌");
+  }
+}
+</script>
+  <body data-page="home">
+    <!-- PIN CODE POPUP -->
+<div class="overlay" id="pinPopup">
+  <div class="popup-box">
+    <span class="close-btn" onclick="closePopup()">×</span>
+    <h2>Enter PIN Code</h2>
+    <p>Check delivery availability</p>
+
+    <input type="text" id="pinInput" placeholder="Enter 6-digit PIN" />
+
+    <button onclick="submitPin()">Check</button>
+  </div>
+</div>
+    <div class="page-shell">
+      <div class="water water-a"></div>
+      <div class="water water-b"></div>
+      <div class="water water-c"></div>
+
+      <header class="site-header">
+        <div class="mobile-header">
+          <a class="brand compact" href="index.html">
+            <span class="brand-mark">AB</span>
+            <span>
+              <strong>AquaBasket</strong>
+              <small>shop faster</small>
+            </span>
+          </a>
+
+          <div class="header-actions">
+            <a class="auth-mini" href="login.html">Login</a>
+            <button class="cart-pill compact" id="cartButton" type="button">
+              Cart
+              <span id="cartCount">0</span>
+            </button>
+          </div>
+        </div>
+
+
+        <div class="search-row">
+          <div class="search-panel mobile-search">
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search products, brands and more"
+              aria-label="Search products"
+            />
+            <button class="primary-btn icon-search" id="searchBtn" type="button">Go</button>
+          </div>
+        </div>
+
+        <nav class="category-nav mobile-cats" aria-label="Shop categories">
+          <button class="category-chip active" data-filter="all" type="button">All</button>
+          <button class="category-chip" data-filter="stationery" type="button">Stationery</button>
+          <button class="category-chip" data-filter="photo frames" type="button">Frames</button>
+          <button class="category-chip" data-filter="toys" type="button">Toys</button>
+        </nav>
+      </header>
+
+      <main>
+        <section class="mobile-hero glass-card">
+          <div class="deal-copy">
+            <p class="eyebrow">Top deals</p>
+            <h1>Buy your favorites quickly.</h1>
+            <p class="hero-text">Fast product access, smooth scrolling, bright water-display look.</p>
+          </div>
+          <div class="deal-strip">
+            <article class="deal-card highlight">
+              <span>From Rs 199</span>
+              <strong>Stationery Sale</strong>
+            </article>
+            <article class="deal-card">
+              <span>Up to 30% off</span>
+              <strong>Photo Frames</strong>
+            </article>
+            <article class="deal-card">
+              <span>Kids picks</span>
+              <strong>Toys Corner</strong>
+            </article>
+          </div>
+        </section>
+
+        <section class="icon-row" aria-label="Shop shortcuts">
+          <button class="shortcut-card" data-shortcut-filter="stationery" type="button">
+            <span class="shortcut-icon">ST</span>
+            <strong>Stationery</strong>
+          </button>
+          <button class="shortcut-card" data-shortcut-filter="photo frames" type="button">
+            <span class="shortcut-icon">PF</span>
+            <strong>Frames</strong>
+          </button>
+          <button class="shortcut-card" data-shortcut-filter="toys" type="button">
+            <span class="shortcut-icon">TY</span>
+            <strong>Toys</strong>
+          </button>
+          <button class="shortcut-card owner-launch" id="openOwnerPanel" type="button">
+            <span class="shortcut-icon">+</span>
+            <strong>Add Product</strong>
+          </button>
+        </section>
+
+        <section class="mini-banner-row">
+          <article class="mini-banner">
+            <p>Limited time</p>
+            <h2>Free delivery style UI</h2>
+          </article>
+          <article class="mini-banner">
+            <p>Trending now</p>
+            <h2>Desk sets and toy gifts</h2>
+          </article>
+        </section>
+
+        <section class="products-section">
+          <div class="products-toolbar mobile-toolbar">
+            <div>
+              <p class="eyebrow">Products</p>
+              <h2 id="products">Shop now</h2>
+            </div>
+            <p id="resultsText">Showing all products</p>
+          </div>
+          <div class="product-grid" id="productGrid"></div>
+        </section>
+
+        <section class="owner-section glass-card" id="owner">
+          <div class="owner-copy">
+            <p class="eyebrow">Owner controls</p>
+            <h2>Add more products later</h2>
+            <p>
+              This section stays lower on the page so customers see products first. The owner can still
+              add new items anytime.
+            </p>
+          </div>
+
+          <form class="owner-form" id="ownerForm">
+            <label>
+              Product name
+              <input id="productName" name="name" type="text" placeholder="Ocean Blue Journal" required />
+            </label>
+            <label>
+              Category
+              <select id="productCategory" name="category" required>
+                <option value="stationery">Stationery</option>
+                <option value="photo frames">Photo Frames</option>
+                <option value="toys">Toys</option>
+              </select>
+            </label>
+            <label>
+              Price
+              <input id="productPrice" name="price" type="number" min="1" step="1" placeholder="499" required />
+            </label>
+            <label>
+              Tag line
+              <input id="productTag" name="tag" type="text" placeholder="Soft cover | Bestseller" required />
+            </label>
+            <label>
+              Image label
+              <input id="productImage" name="image" type="text" placeholder="Aqua Journal" required />
+            </label>
+            <div class="owner-actions">
+              <button class="primary-btn owner-submit" type="submit">Add Product</button>
+              <button class="secondary-btn small" id="resetProducts" type="button">Reset Added Products</button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <div class="drawer-backdrop hidden" id="drawerBackdrop"></div>
+
+    <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+      <div class="drawer-head">
+        <h3>Your cart</h3>
+        <button class="icon-btn" id="closeCart" type="button">X</button>
+      </div>
+      <div id="cartItems" class="drawer-items"></div>
+      <div class="drawer-foot">
+        <p>Total: <strong id="cartTotal">Rs 0</strong></p>
+        <button class="primary-btn wide" type="button">Checkout</button>
+      </div>
+    </aside>
+
+    <div class="product-modal-backdrop hidden" id="productModalBackdrop"></div>
+
+    <section class="product-modal hidden" id="productModal" aria-label="Product details">
+      <div class="product-modal-head">
+        <p class="eyebrow">Product details</p>
+        <button class="icon-btn" id="closeProductModal" type="button">X</button>
+      </div>
+
+      <div class="product-modal-body">
+        <div class="product-modal-hero" id="modalProductImage"></div>
+        <div class="product-modal-copy">
+          <p class="product-category" id="modalProductCategory"></p>
+          <h2 id="modalProductName"></h2>
+          <p class="product-tag" id="modalProductTag"></p>
+          <div class="price-row modal-price-row">
+            <strong id="modalProductPrice"></strong>
+            <span class="strike" id="modalProductOldPrice"></span>
+            <span class="modal-discount" id="modalProductDiscount"></span>
+          </div>
+          <p class="modal-delivery">Free delivery | Bright picks for everyday shopping</p>
+          <div class="product-actions">
+            <button class="secondary-btn" id="modalAddToCart" type="button">Add to Cart</button>
+            <button class="primary-btn" id="modalBuyNow" type="button">Buy Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="related-section">
+        <div class="related-head">
+          <h3>Related products</h3>
+          <p>Similar picks like JioMart browsing</p>
+        </div>
+        <div class="related-grid" id="relatedProducts"></div>
+      </div>
+    </section>
+
+    <nav class="bottom-nav" aria-label="Bottom navigation">
+      <a href="#products" class="bottom-link active">Home</a>
+      <button class="bottom-link" data-shortcut-filter="all" type="button">Categories</button>
+      <button class="bottom-link" id="mobileCartButton" type="button">Cart</button>
+      <a href="login.html" class="bottom-link">Account</a>
+    </nav>
+
+    <script src="products.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

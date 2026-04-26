@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up | AquaBasket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="auth">
+    <div class="auth-shell">
+      <div class="water water-a"></div>
+      <div class="water water-c"></div>
+      <section class="auth-card glass-card">
+        <a class="back-link" href="index.html">Back to shop</a>
+        <p class="eyebrow">New here</p>
+        <h1>Create your AquaBasket account</h1>
+        <p class="auth-copy">Sign up for a bright shopping experience with stationery, frames and toys.</p>
+
+        <form id="signupForm" class="auth-form">
+          <label>
+            Full name
+            <input type="text" id="signupName" placeholder="Your name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" id="signupEmail" placeholder="you@example.com" required />
+          </label>
+          <label>
+            Password
+            <input type="password" id="signupPassword" placeholder="Create a password" required />
+          </label>
+          <button class="primary-btn wide" type="submit">Create Account</button>
+        </form>
+
+        <p class="auth-switch">
+          Already have an account?
+          <a href="login.html">Login</a>
+        </p>
+        <p class="auth-message" id="signupMessage"></p>
+      </section>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
