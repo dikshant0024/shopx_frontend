@@ -489,3 +489,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupAuth();
   }
 });
+
+function goToStationery() {
+  window.location.href = "stationery.html";
+}
